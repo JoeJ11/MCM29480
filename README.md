@@ -6,7 +6,6 @@
 	建立数学模型，决定best college coach or coaches(past or present) from among either male or female coaches 
 in such sports as college hockey or field hockey, football, baseball or softball, basketball, or soccer.
 	注意不同时间段对于模型的影响
-	
 	问题：
 	1.阐述采用的标准
 	2.阐述模型如何能够被用于其他的体育项目和全部性别
@@ -35,5 +34,10 @@ in such sports as college hockey or field hockey, football, baseball or softball
 	5. 如何体现外部条件？包括：联赛级别，赛制差异，年代差异（同年代教练进行横向比较？）
 
 
-目前的任务：
-找数据
+	目前的任务：
+	找数据
+
+	目前已经找到的数据：
+	NCAA coach records
+	http://www.sports-reference.com/
+	http://www.uscho.com/stats/coaches/mens-hockey/#all
