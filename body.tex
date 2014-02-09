@@ -67,36 +67,61 @@ Note that it is similar to the definition of WLP, so this parameter has similar 
 %==================================模型建立==============================================
 
 \subsection{Measurement for Performance}
-In this part, we will explain the system to measure a team's performance. This index will also serves as a basic part for evaluating the promotion.
+In this part, we will explain the system to measure a team's performance. This index will serves as a basic part for evaluating promotion and stability.
+
+\newcommand{\performance}{x_i\frac{1+b(p-0.5)}{1+a\sigma}}
 \begin{definition}
-In a season of interest, suppose there are N teams in a conference $t_1, t_2,\dots,t_N$. Team $t_i$ has a WLP $x_i$. Then the performance for team $t_i$ is:
-$$y_i\doteq (1-a\sigma)x_i$$
-where $\sigma = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}$ and $\mu = \frac{\sum_{i=1}^N{x_i}}{N}$
+In a season of interest, suppose there are N teams in a conference $t_1, t_2,\dots,t_N$. Team $t_i$ has a WLP $x_i$. The conference has a Conference Strength p. Then the performance for team $t_i$ is
+$$y_i\doteq \performance$$
 \end{definition}
-Note here $\mu$ is the average and $\sigma$ is the variance.
 
-In the definition, $a$ is a parameter describing to what extent will the model consider the relative performance inside the conference.
+Here $\mu$ is the average and $\sigma$ is the variance, that is $\sigma = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}$ and $\mu = \frac{\sum_{i=1}^N{x_i}}{N}$.
 
-The definition of $y_i$ has the following property:
+In the definition, $a$ and $b$ are both parameters and are both relatively small.In fact, here $a$ depicts the influence of the teams opponents and $b$ depicts the influence of the conference.
+
+The definition of $y_i$ has the following properties:
 
 \newtheorem{property}{Property}
 
 \begin{property}
 $$\frac{\partial{y_i}}{\partial{x_i}} > 0$$
 \end{property}
+\begin{comment}
 \begin{proof}
-$$\frac{\partial{y_i}}{\partial{x_i}} = 1 - a\sigma$$
-So if a is small enough, we have the property holds.
+$$\frac{\partial{y_i}}{\partial{x_i}} = \frac{1+b(p-0.5)}{1+a\sigma}$$
+Since both $a$ and $b$ are positive, we have $\frac{\partial{y_i}}{\partial{x_i}}>0$.
 \end{proof}
+\end{comment}
 
 \begin{property}
 $$\frac{\partial{y_i}}{\partial{\sigma}}<0$$
 \end{property}
+\begin{comment}
 \begin{proof}
-$$\frac{\partial{y_i}}{\partial{\sigma}} = -ax_i < 0$$
+$$\frac{\partial{y_i}}{\partial{\sigma}} = -x_i\frac{1+b(p-0.5)}{1+a\sigma}\ln(1+a\sigma)$$
+Similarly, we have both $a$ and $b$ are positive, so $\frac{\partial{y_i}}{\partial{\sigma}}<0$
 \end{proof}
+\end{comment}
 
-To prove \textbf{Property 3}, first we prove the following claim:
+\begin{property}
+$$\frac{\partial{y_i}}{\partial{p}} > 0$$
+\end{property}
+\begin{comment}
+\begin{proof}
+$$\frac{\partial{y_i}}{\partial{\p}} = \frac{b}{1+a\sigma}x_i > 0$$
+\end{proof}
+\end{comment}
+
+These three properties are easy to prove.
+
+These three properties suggests how performance is related to three variables, which is quite intuitive. Specifically, since $p=0.5$ means the conference is of middle level among all conferences, there is a $(p-0.5)$ inside the definition to be consistent with the property.
+
+Next we have \textbf{Property 4}, which will guarantee the comparable between different teams from different conferences or/and different eras.
+\begin{property}
+$$\frac{\sum_{i=1}^N{y_i}}{N}<\frac{1-b}{2(1+a)}$$
+\end{property}
+
+To prove \textbf{Property 4}, first we prove the following claim:
 \newtheorem{claim}{Claim}
 
 \begin{claim}
@@ -114,31 +139,22 @@ so we have
 $$\sum_{i=1}^N{x_i} = \frac{N}{2}$$
 \end{proof}
 
-\begin{property}
-$$\frac{\sum_{i=1}^N{y_i}}{N}<\frac{1-a}{2}$$
-\end{property}
+Then we can prove \textbf{Property 4}
 \begin{proof}
 \begin{align}
-\sum_{i=1}^Ny_i &= (1-a\sigma)\sum_{i=1}^Nx_i\\
-&=(1-a\sigma)\frac{1}{2}\\
-&<\frac{1-a}{2}
+\sum_{i=1}^Ny_i &= \frac{1+b(p-0.5)}{1+a\sigma}\sum_{i=1}^Nx_i\\
+&=\frac{1+b(p-0.5)}{1+a\sigma}\frac{1}{2}\\
+&<\frac{1-b}{2(1+a)}
 \end{align}
-Here \textbf{Claim 1} is used.
 \end{proof}
 
-These three properties guarantee the comprehensive of the model, trying to depict a team's performance based on various aspects.
-
-\textbf{Property 1} and \textbf{Property 2} shows how $y$ is related to the team's own performance and the other teams in the conference. With $\sigma$ performance for a single team is related to the performance of each team in the conference, so to some extent, $\sigma$ is used to show information about the conference.
-
-\textbf{Property 1} is easy to understand. \textbf{Property 2} is required because a larger $\sigma$ suggests to get a high score is easier and thus its WLP should counts less.
-
-\textbf{Property 3} is related to reasons to choose MLP, specifically property that every team has the same expectation. When consider $\sigma$, obviously this property does not hold anymore. However, we can set $a$ small enough in this model. Thus the property still can be used. This property is fundamental in comparison between teams in different conference or even different eras in that the property provide the comparison with a fair base.
+\textbf{Property 4} suggests this measurement is consistent among all conferences and all eras. The expectation of $y_i$ is close to 0.5 given that $a$ and $b$ are both small. So $\sigma$ and $p$ will not bring into the model too much prejudices but only minor amendments.
 
 \textbf{Comparison with SRS}
 
-Here we compare our measurements for performance with another system of performance measurement called simple ranking system(SRS).
+Here we compare our measurements with another system of performance measurement called simple ranking system(SRS), which is used for ranking college basketball teams recently in National Collegiate Athletic Association(NCAA).
 
-SRS is based on data of goals instead of WLP. It is also aimed at involving other teams' performance into a single team's assessment. Different from our model, SRS builds its evaluation on a set of equations
+SRS is aimed at involving opponent's performance into a single team's assessment and finally make reliable predictions about which team will get the most credits in the conference. Different from our model, SRS builds its evaluation on a set of equations
 \begin{align}
 \nonumber
 &R_1 = x_1 - \mu + \frac{1}{N-1}\sum_{j\neq i} R_j\\\nonumber
@@ -148,13 +164,15 @@ SRS is based on data of goals instead of WLP. It is also aimed at involving othe
 \end{align}
 where $\mu = \frac{\sum_{i=1}^Nx_i}{N}$
 
-This set of equations can be solved with Gauss-Seidel algorithm. Obviously, there are two parts in each equation. The first one is $x_i - \mu$, which stands for credits got by the team itself. Another part is  $\frac{1}{N-1}\sum_{j\neq i} R_j$, which can be seen as an amendment brought by its opponents.
+This set of equations can be solved with Gauss-Seidel algorithm. Obviously, there are two parts in each equation. The first one is $x_i - \mu$, which stands for credits got by the team. Another part is  $\frac{1}{N-1}\sum_{j\neq i} R_j$, which can be seen as an amendment brought by its opponents.
 
 This method, however, cannot achieve its initial purpose. Further study shows that this set of equations has a solution set like
 $$R_i = \frac{N-1}{N}x_i + c$$
 where $c$ is an arbitrary constant.
 
-So what we got from this method only relies on N and $x_i$, instead of $x_1, x_2,\dots,x_N$ all as we wished. In comparison, our model do take every team's WLP into consideration, which suggests this method can partly shows the relationships among different teams inside the conference.
+So what we got from this method only relies on N and $x_i$, instead of $x_1, x_2,\dots,x_N$ as we wished. In contrast, our model do take every team's WLP into consideration, which suggests this method can partly shows the relationships among different teams inside the conference.
+
+Also, our measurement takes into account the overall performance of the conference while SRS does not. So SRS cannot be applied to compare teams from different conferences.
 
 \subsection{Measure of Promotion}
 In this part, the promotion a coach has brought to his team is calculated. This calculation is based on the team's performance data described in previous section.
@@ -163,7 +181,7 @@ The promotion is determined by two parts of data. One is the team's \emph{histor
 
 \begin{definition}
 Suppose we have a team's historical performance $y_1, y_2,\dots, y_s$ and its temporary performance $y_{s+1}, y_{s+2},\dots, y_r$. Then the promotion is
-$$p\doteq \frac{\sum_{i = s+1}^r}{r-s} - \frac{\sum_{i=1}^sy_i}{s}$$
+$$p\doteq \frac{\sum_{i = s+1}^ry_i}{r-s} - \frac{\sum_{i=1}^sy_i}{s}$$
 \end{definition}
 
 This definition of promotion is straightforward. The difference between expectation and real performance can be regarded as promotion.
