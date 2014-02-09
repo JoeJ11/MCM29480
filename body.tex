@@ -103,6 +103,27 @@ These three properties guarantee the comprehensive of the model, trying to depic
 
 \textbf{Property 3} is related to reasons to choose MLP, specifically property that every team has the same expectation. When consider $\sigma$, obviously this property does not hold anymore. However, we can set $a$ small enough in this model. Thus the property still can be used. This property is fundamental in comparison between teams in different conference or even different eras in that the property provide the comparison with a fair base.
 
+\textbf{Comparison with SRS}
+
+Here we compare our measurements for performance with another system of performance measurement called simple ranking system(SRS).
+
+SRS is based on data of goals instead of WLP. It is also aimed at involving other teams' performance into a single team's assessment. Different from our model, SRS builds its evaluation on a set of equations
+\begin{align}
+\nonumber
+&R_1 = x_1 - \mu + \frac{1}{N-1}\sum_{j\neq i} R_j\\\nonumber
+&R_2 = x_2 - \mu + \frac{1}{N-1}\sum_{j\neq i} R_j\\\nonumber
+&...\\\nonumber
+&R_N = x_N - \mu + \frac{1}{N-1}\sum_{j\neq i} R_N \\\nonumber
+\end{align}
+where $\mu = \frac{\sum_{i=1}^Nx_i}{N}$
+
+This set of equations can be solved with Gauss-Seidel algorithm. Obviously, there are two parts in each equation. The first one is $x_i - \mu$, which stands for credits got by the team itself. Another part is  $\frac{1}{N-1}\sum_{j\neq i} R_j$, which can be seen as an amendment brought by its opponents.
+
+This method, however, cannot achieve its initial purpose. Further study shows that this set of equations has a solution set like
+$$R_i = \frac{N-1}{N}x_i + c$$
+where $c$ is an arbitrary constant.
+
+So what we got from this method only relies on N and $x_i$, instead of $x_1, x_2,\dots,x_N$ all as we wished. In comparison, our model do take every team's WLP into consideration, which suggests this method can partly shows the relationships among different teams inside the conference.
 
 \subsection{Measure of Promotion}
 In this part, the promotion of a coach has brought to his team calculated. This calculation is based on the team's performance data described in previous section.
@@ -113,74 +134,6 @@ The promotion is determined by two parts of data. One is the team's historical p
 Suppose we have a team's historical performance $y_1, y_2,\dots, y_s$ and its temporary performance $y_{s+1}, y_{s+2},\dots, y_r$. Then the promotion is
 $$p\doteq \frac{\sum_{i = s+1}^r}{r-s} - \frac{\sum_{i=1}^sy_i}{s}$$
 \end{definition}
-%================================== this part is not our article ==========================================
-\begin{figure}[h]
-\small
-\centering
-\includegraphics[width=12cm]{./picture/aaa.eps}
-\caption{aa} \label{fig:aa}
-\end{figure}
-
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse “feels like the right thing”
-and that he remained optimistic the race “is going to tip at some
-point,” the friend said.\eqref{aa}
-\begin{equation}
-  a^2 \label{aa}
-\end{equation}
-
-
-\[
-\left( {\begin{array}{*{20}c}
-   {a_{11} } & {a_{12} } & {a_{13} }  \\
-   {a_{21} } & {a_{22} } & {a_{23} }  \\
-   {a_{31} } & {a_{32} } & {a_{33} }  \\
-\end{array}} \right) = \frac{{Opposite}}{{Hypotenuse}}\cos ^{ - 1} \theta \arcsin \theta
-\]
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse “feels like the right thing”
-and that he remained optimistic the race “is going to tip at some
-point,” the friend said.
-
-\[
-p_{j}=\begin{cases} 0,&\text{if $j$ is odd}\\
-r!\,(-1)^{j/2},&\text{if $j$ is even}
-\end{cases}
-\]
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse “feels like the right thing”
-and that he remained optimistic the race “is going to tip at some
-point,” the friend said.
-\[
-\arcsin \theta  =
-\mathop{{\int\!\!\!\!\!\int\!\!\!\!\!\int}\mkern-31.2mu
-\bigodot}\limits_\varphi
- {\mathop {\lim }\limits_{x \to \infty } \frac{{n!}}{{r!\left( {n - r}
- \right)!}}} \eqno (1)
-\]
-
-
-
-
-\section{Calculating and Simplifying the Model  } ``A is equivalent
-to B'' Although Mr. Gore has expressed concerns to some associates
-about the damage a brokered convention could cause, several
-associates said he was hopeful that one candidate would soon break
-through, sparing the party such an outcome. He told a close friend
-recently that his decision not to endorse “feels like the right
-thing” and that he remained optimistic the race “is going to tip
-at some point,” the friend said.
-
-
 
 %===============================模型结果============================================
 \section{The Model Results}
