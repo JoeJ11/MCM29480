@@ -1,94 +1,119 @@
 
 %======================问题介绍====================================
 \section{Introduction}
+Assessing a college coach can be hard. Traditionally, the assessment of a coach is entirely decided by the  performance of his team. This method, however, is not convincing enough in that it neglects the promotion a coach has brought to his team.
+
+We, on the other hand, develop a model trying to combine these two aspects together by taking both these two elements, performance of the team and promotion brought by the coach, into consideration. Furthermore, we develop a method to evaluating the performance of a team with limited information, which makes the evaluation for coaches of the whole past century possible since data in those early years may not be as comprehensive as it is now.
+
 
 Although a hitter might expect a model of the bat–baseball collision to
 yield insight into how the bat breaks, how the bat imparts spin on the ball,
 how best to swing the bat, and so on, we model only the sweet spot.
 
-There are at least two notions of where the sweet spot should be—an
-impact location on the bat that either
-\begin{itemize}
-\item minimizes the discomfort to the hands, or
-\item maximizes the outgoing velocity of the ball.
-\end{itemize}
-We focus exclusively on the second definition.
 
-\begin{itemize}
-  \item the initial velocity and rotation of the ball,
-\item the initial velocity and rotation of the bat,
-\item the relative position and orientation of the bat and ball, and
-\item the force over time that the hitter抯 hands applies on the handle.
-\end{itemize}
-We assume that the ball is not rotating and that its velocity at impact is
-perpendicular to the length of the bat. We assume that everything occurs
-in a single plane, and we will argue that the hands?interaction is negligible.
-In the frame of reference of the center of mass of the bat, the initial conditions
-are completely specified by
-\begin{itemize}
-  \item the angular velocity of the bat,
-\item the velocity of the ball, and
-\item the position of impact along the bat.
-\end{itemize}
-The location of the sweet spot depends not on just the bat alone but also
-on the pitch and on the swing.
-The simplest model for the physics involved has the sweet spot at the
-\emph{center of percussion} [Brody 1986], the impact location that minimizes discomfort
-to the hand. The model assumes the ball to be a rigid body for which
-there are conjugate points: An impact at one will exactly balance the angular
-recoil and linear recoil at the other. By gripping at one and impacting at the
-other (the center of percussion), the hands experience minimal shock and
-the ball exits with high velocity. The center of percussion depends heavily
-on the moment of inertia and the location of the hands. We cannot accept
-this model because it both erroneously equates the two definitions of sweet
-spot and furthermore assumes incorrectly that the bat is a rigid body.
-Another model predicts the sweet spot to be between nodes of the two
-lowest natural frequencies of the bat [Nathan 2000]. Given a free bat allowed
-to oscillate, its oscillations can be decomposed into fundamental
-modes of various frequencies. Different geometries and materials have different
-natural frequencies of oscillation. The resulting wave shapes suggest
-how to excite those modes (e.g., plucking a string at the node of a vibrational
-mode will not excite that mode).
-
-
-
-
-    \begin{Theorem} \label{thm:latex}
-    \LaTeX
-    \end{Theorem}
-    \begin{Lemma} \label{thm:tex}
-    \TeX .
-    \end{Lemma}
-    \begin{proof}
-    The proof of theorem.
-    \end{proof}
-
-
-
-
-
-
-\subsection{Other Assumptions}
-%\renewcommand{\labelitemi}{\ding{43}}
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse “feels like the right thing”
-and that he remained optimistic the race “is going to tip at some
-point,” the friend said.
-\begin{itemize}
-\item
-\item
-\item
-\item
-\end{itemize}
-
- Under the above and basic assumptions, we can set out
-to construct our model (show our approach in detail).
 %=============================问题分析==========================================
 \section{Analysis of the Problem }
+The assessment of a college coach is related to numerous of elements. In the model, these elements are first combined and converted into certain parameters, each parameter represents a measurement of the coach. Our assessment system is based on these parameters and is determined by training and studying, which means the the relationship of these parameters is decided by the model itself instead of some empirical judgements.
+
+Since the model's purpose is to rank coaches in the past century, records must be carefully selected to guarantee the possibility of comparison between different eras. The model selects Win-Loss percentage(WLP) as its basic information.
+\newtheorem{definition}{Definition}
+\begin{definition}
+Given an interval of interest, suppose the team under consideration has $w$ wins, $l$ loss and $d$ ties. The Win-Loss percentage(WLP) is:
+$$WLP \doteq \frac{w + 0.5d}{w + l + d}$$
+\end{definition}
+The selection is based on the following considerations:
+
+\begin{itemize}
+\item Win-Loss percentage for the sports we select is recorded or can be calculated throughout the whole past century.
+\item Win-Loss percentage can minimize the influence brought by different tournament system and different rules, which provides the model with more generality.
+\item For all teams, the Win-Loss percentage is of the same scale, which means $WLP\in [0,1]$.
+\item The expectation for Win-Loss percentage is the same for all team, which is 0.5. So this is a fair index when comparing performances across teams, avoiding prejudices brought by the model.
+\end{itemize}
 %==================================模型建立==============================================
+
+In the model, based primarily on WLP records of NCAA teams, we synthesize the data into two parameters: performance and promotion.
+
+Performance measures the team's performance during the time directed by the coach of interest. This parameter is similar to the traditional way of measurements. Promotion measures to what extent can the coach makes the team work better. As will showed later, these two parameter is based on data of different periods of a team, so they do depict different aspects of a coach.
+
+\subsection{Measurement for Performance}
+In this part, we will explain the system to measure a team's performance. This index will also serves as a basic part for evaluating the promotion.
+\begin{definition}
+In a season of interest, suppose there are N teams in a conference $t_1, t_2,\dots,t_N$. Team $t_i$ has a WLP $x_i$. Then the performance for team $t_i$ is:
+$$y_i\doteq (1-a\sigma)x_i$$
+where $\sigma = \frac{\sum_{i=1}^{N}(x_i - \mu)^2}{N}$ and $\mu = \frac{\sum_{i=1}^N{x_i}}{N}$
+\end{definition}
+Note here $\mu$ is the average and $\sigma$ is the variance.
+
+In the definition, $a$ is a parameter describing to what extent will the model consider the relative performance inside the conference.
+
+The definition of $y_i$ has the following property:
+
+\newtheorem{property}{Property}
+
+\begin{property}
+$$\frac{\partial{y_i}}{\partial{x_i}} > 0$$
+\end{property}
+\begin{proof}
+$$\frac{\partial{y_i}}{\partial{x_i}} = 1 - a\sigma$$
+So if a is small enough, we have the property holds.
+\end{proof}
+
+\begin{property}
+$$\frac{\partial{y_i}}{\partial{\sigma}}<0$$
+\end{property}
+\begin{proof}
+$$\frac{\partial{y_i}}{\partial{\sigma}} = -ax_i < 0$$
+\end{proof}
+
+To prove \textbf{Property 3}, first we prove the following claim:
+\newtheorem{claim}{Claim}
+
+\begin{claim}
+In a tournament with N teams $t_1,t_2,\dots,t_N$, team $t_i$ has a WLP $x_i$, then
+$$\sum_{i=1}^N{x_i} = \frac{N}{2}$$
+\end{claim}
+\begin{proof}
+Each team plays the same number of games, which is $2N\choose 2=N(N-1)$, suppose team $t_i$ has $w_i$ wins and $d_i$ ties. Then
+$$x_i=\frac{w_i + 0.5t_i}{N(N-1)}$$
+so
+$$\sum_{i=1}^N{x_i} = \frac{\sum_{i=1}^N(w_i + 0.5t_i)}{N(N-1)}$$
+Since each game is counted either as a win and a loss or as two ties, we have
+$$\sum_{i=1}^N(w_i+0.5t_i)=\frac{N(N-1)}{2}$$
+so we have
+$$\sum_{i=1}^N{x_i} = \frac{N}{2}$$
+\end{proof}
+
+\begin{property}
+$$\frac{\sum_{i=1}^N{y_i}}{N}<\frac{1-a}{2}$$
+\end{property}
+\begin{proof}
+\begin{align}
+\sum_{i=1}^Ny_i &= (1-a\sigma)\sum_{i=1}^Nx_i\\
+&=(1-a\sigma)\frac{1}{2}\\
+&<\frac{1-a}{2}
+\end{align}
+Here \textbf{Claim 1} is used.
+\end{proof}
+
+These three properties guarantee the comprehensive of the model, trying to depict a team's performance based on various aspects.
+
+\textbf{Property 1} and \textbf{Property 2} shows how $y$ is related to the team's own performance and the other teams in the conference. With $\sigma$ performance for a single team is related to the performance of each team in the conference, so to some extent, $\sigma$ is used to show information about the conference.
+
+\textbf{Property 1} is easy to understand. \textbf{Property 2} is required because a larger $\sigma$ suggests to get a high score is easier and thus its WLP should counts less.
+
+\textbf{Property 3} is related to reasons to choose MLP, specifically property that every team has the same expectation. When consider $\sigma$, obviously this property does not hold anymore. However, we can set $a$ small enough in this model. Thus the property still can be used. This property is fundamental in comparison between teams in different conference or even different eras in that the property provide the comparison with a fair base.
+
+
+\subsection{Measure of Promotion}
+In this part, the promotion of a coach has brought to his team calculated. This calculation is based on the team's performance data described in previous section.
+
+The promotion is determined by two parts of data. One is the team's historical performance, which means how this team works before the coach came to the team and another is the team's temporary performance, which shows how the team works during the period directed by the coach. The model makes a prediction based on the historical performance and compares the prediction with its real performance and the result of the comparison will be used as promotion.
+
+\begin{definition}
+Suppose we have a team's historical performance $y_1, y_2,\dots, y_s$ and its temporary performance $y_{s+1}, y_{s+2},\dots, y_r$. Then the promotion is
+$$p\doteq \frac{\sum_{i = s+1}^r}{r-s} - \frac{\sum_{i=1}^sy_i}{s}$$
+\end{definition}
+%================================== this part is not our article ==========================================
 \begin{figure}[h]
 \small
 \centering
@@ -265,4 +290,4 @@ Here are simulation programmes we used in our model as follow.\\
     some more text\textcolor[rgb]{0.98,0.00,0.00}{\textbf{Input C++ source:}}
 \lstinputlisting[language=C++]{./code/sudoku.cpp}
 
-    \end{appendices} 
+    \end{appendices}
