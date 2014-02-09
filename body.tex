@@ -13,12 +13,30 @@ how best to swing the bat, and so on, we model only the sweet spot.
 
 %=============================问题分析==========================================
 \section{Analysis of the Problem }
-The assessment of a college coach is related to numerous of elements. In the model, these elements are first combined and converted into certain parameters, each parameter represents a measurement of the coach. Our assessment system is based on these parameters and is determined by training and studying, which means the the relationship of these parameters is decided by the model itself instead of some empirical judgements.
+Basically, our model assessments a coach based on the performance of teams. So a fundamental issue here is properly evaluates the performance of a team during a season. This issue, however, is related to several aspects which are intricately connected with each other. Our model develops a method to give a assessment of the performance for the team based on its Win-Loss percentage, its opponents' strength and the rank of conference it is in.
 
-Since the model's purpose is to rank coaches in the past century, records must be carefully selected to guarantee the possibility of comparison between different eras. The model selects Win-Loss percentage(WLP) as its basic information.
+Based on a comprehensive evaluation of performance for all teams, the model get some parameters which can depict different aspects of a coach. These parameters are carefully selected such that they are independent of each other and each parameter is well related to an aspect of the coach. Besides, these parameters will make full use of our data found, which suggests the comprehensiveness of our model.
+
+A series of preliminaries are set to filter coaches ahead of the model in order to minimize our size of candidates. These preliminaries are selected such that real "legends" will not be overlooked and will sure to be selected. This procedure will greatly alleviate our calculation, thus making more comprehensive and complicate model possible.
+
+The model can be explained by \textbf{Figure 1}:
+\begin{figure}[!ht]
+\centering
+\includegraphics[width = 150mm]{picture/OverallFrame.png}
+\caption{Overall framework}
+\end{figure}
+
+In the model, based primarily on records of NCAA teams for the last century, we synthesize the data into two parameters: performance and promotion.
+
+Performance measures the team's performance during the time directed by the coach of interest. This parameter is similar to the traditional way of measurements. Promotion measures to what extent can the coach makes the team work better. As will showed later, these two parameter is based on data of different periods of a team, so they do depict different aspects of a coach.
+
+\subsection{Basic definitions}
+
+\subsubsection{Win-Loss percentage}
+Since the model's purpose is to rank coaches in the past century, records must be carefully selected to enable the comparison between teams from different era. We select Win-Loss percentage(WLP) as one of its basic figures.
 \newtheorem{definition}{Definition}
 \begin{definition}
-Given an interval of interest, suppose the team under consideration has $w$ wins, $l$ loss and $d$ ties. The Win-Loss percentage(WLP) is:
+Given an interval of interest, suppose the team under consideration has $w$ wins, $l$ losses and $d$ ties. The Win-Loss percentage(WLP) is:
 $$WLP \doteq \frac{w + 0.5d}{w + l + d}$$
 \end{definition}
 The selection is based on the following considerations:
@@ -27,13 +45,26 @@ The selection is based on the following considerations:
 \item Win-Loss percentage for the sports we select is recorded or can be calculated throughout the whole past century.
 \item Win-Loss percentage can minimize the influence brought by different tournament system and different rules, which provides the model with more generality.
 \item For all teams, the Win-Loss percentage is of the same scale, which means $WLP\in [0,1]$.
-\item The expectation for Win-Loss percentage is the same for all team, which is 0.5. So this is a fair index when comparing performances across teams, avoiding prejudices brought by the model.
+\item The expectation for Win-Loss percentage is the same for all teams, which is 0.5. So this is a fair index when comparing performances across teams, avoiding prejudices brought by the model.
 \end{itemize}
+
+\subsubsection{Conference Strength}
+Besides measurements for a single team, the model also considers the strength a team is in. This parameter depicts the overall performance of teams in a conference and is used for comparing teams from different conferences.
+\begin{definition}
+Given an interval and a conference with N teams of interest. Suppose for a team $t_i$ in the conference, it has $W_i$ overall wins, $L_i$ overall losses and $D_i$ overall ties. Meanwhile, it has $w_i$ conference wins, $l_i$ conference losses and $d_i$ conference ties. Then we have \textbf{Conference Strength} p is
+$$p \doteq \frac{\sum_{i=1}^N(W_i + 0.5D_i - w_i - 0.5d_i)}{\sum_{i=1}^N(W_i+L_i+D_i-w_i-l_i-d_i)}$$
+\end{definition}
+Here overall wins(losses, ties) means all games, whether the opponents are from the same conference or not, is taken into consideration, and conference wins(losses, ties) only considers those games with opponents in the conference.
+
+Note that it is similar to the definition of WLP, so this parameter has similar properties as WLP:
+\begin{itemize}
+\item Conference Strength for the sports we select can be calculated throughout the whole past century.
+\item Conference Strength is related to the overall performance of teams in a conference, and does not necessarily related to tournament system and rules, which provides the model with more generality.
+\item For all conferences, Conference Strength is of the same scale, which means $p\in [0,1]$.
+\item The expectation for Conference Strength is the same for all conferences, which is 0.5. So this is a fair index when comparing performances across conferences, avoiding prejudices brought by the model.
+\end{itemize}
+
 %==================================模型建立==============================================
-
-In the model, based primarily on WLP records of NCAA teams, we synthesize the data into two parameters: performance and promotion.
-
-Performance measures the team's performance during the time directed by the coach of interest. This parameter is similar to the traditional way of measurements. Promotion measures to what extent can the coach makes the team work better. As will showed later, these two parameter is based on data of different periods of a team, so they do depict different aspects of a coach.
 
 \subsection{Measurement for Performance}
 In this part, we will explain the system to measure a team's performance. This index will also serves as a basic part for evaluating the promotion.
@@ -126,14 +157,21 @@ where $c$ is an arbitrary constant.
 So what we got from this method only relies on N and $x_i$, instead of $x_1, x_2,\dots,x_N$ all as we wished. In comparison, our model do take every team's WLP into consideration, which suggests this method can partly shows the relationships among different teams inside the conference.
 
 \subsection{Measure of Promotion}
-In this part, the promotion of a coach has brought to his team calculated. This calculation is based on the team's performance data described in previous section.
+In this part, the promotion a coach has brought to his team is calculated. This calculation is based on the team's performance data described in previous section.
 
-The promotion is determined by two parts of data. One is the team's historical performance, which means how this team works before the coach came to the team and another is the team's temporary performance, which shows how the team works during the period directed by the coach. The model makes a prediction based on the historical performance and compares the prediction with its real performance and the result of the comparison will be used as promotion.
+The promotion is determined by two parts of data. One is the team's \emph{historical performance}, which means how this team works before the coach came to the team and another is the team's \emph{temporary performance}, which shows how the team works during the period directed by the coach. The model makes a prediction based on the historical performance and compares the prediction with its real performance. The result of the comparison will be used as promotion.
 
 \begin{definition}
 Suppose we have a team's historical performance $y_1, y_2,\dots, y_s$ and its temporary performance $y_{s+1}, y_{s+2},\dots, y_r$. Then the promotion is
 $$p\doteq \frac{\sum_{i = s+1}^r}{r-s} - \frac{\sum_{i=1}^sy_i}{s}$$
 \end{definition}
+
+This definition of promotion is straightforward. The difference between expectation and real performance can be regarded as promotion.
+
+Besides, when calculating promotions, more data is used in the model, which suggests the model is more comprehensive. Since data we can use is limited because of the long time interval, take full use of data can be an advantage of our model.
+
+\subsection{Measure of Stability}
+With the measurement of performance, we can further estimate the stability of a team. This can be depicted by variance of performance during a period of time. 
 
 %===============================模型结果============================================
 \section{The Model Results}
