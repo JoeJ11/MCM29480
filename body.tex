@@ -1,5 +1,5 @@
 
-%======================模型介绍====================================
+%=========================Introduction====================================
 \section{Introduction}
 A lot of numbers are usually used to describe the career of a coach in different sports: total years, matches, victories, winning percentage, champoinships, and so on. There also exist other factors that cannot be directedly obtained by these simple data, or even cannot be reflected by \textbf{any} data. These facts make it almost impossible to propose a perfect assessment method for college coaches.
 
@@ -9,22 +9,14 @@ Our goal is to build a mathematical model to find the best all time college coac
 
 In our metrics for assessment, we use 4 parameters
 
-We develop 2 parameters that can reveal the ability of a coach. Promotion   Stability      Our metric attaches high importance to these aspects.   based on the performance of the team he is managing
-
-
-
- inside the conference it belongs to
+We develop 2 parameters that can reveal the ability of a coach. Promotion   Stability      Our metric attaches high importance to these aspects.   based on the performance of the team he is managing inside the conference it belongs to
 %Assessing a college coach can be hard. Traditionally, the assessment of a coach is entirely decided by the  performance of his team. This method, however, is not convincing enough in that it neglects the promotion a coach has brought to his team.
 
 We, on the other hand, develop a model trying to combine these two aspects together by taking both these two elements, performance of the team and promotion brought by the coach, into consideration. Furthermore, we develop a method to evaluating the performance of a team with limited information, which makes the evaluation for coaches of the whole past century possible since data in those early years may not be as comprehensive as it is now.
 
 
-%Although a hitter might expect a model of the bat?Cbaseball collision to
-%yield insight into how the bat breaks, how the bat imparts spin on the ball,
-%how best to swing the bat, and so on, we model only the sweet spot.
 
-
-%=============================整体模型==========================================
+%=============================Model framework==========================================
 \section{Framework of the Model}
 Basically, our model assesses a coach based on the performance of teams.
 
@@ -280,80 +272,56 @@ $$EVA(c) = 0.056PRO(c) + 0.139STA(c) + 0.525ACH(c) + 0.280WLP(c)$$
 %========================模型结果============================
 
 \section{Validating the Model}
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ??feels like the right thing??
-and that he remained optimistic the race ??is going to tip at some
-point,?? the friend said. Although Mr. Gore has expressed concerns
-to some associates about the damage a brokered convention could
-cause, several associates said he was hopeful that one candidate
-would soon break through, sparing the party such an outcome. He
-told a close friend recently that his decision not to endorse
-??feels like the right thing?? and that he remained optimistic the
-race ??is going to tip at some point,?? the friend said.
 
-
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ??feels like the right thing??
-and that he remained optimistic the race ??is going to tip at some
-point,?? the friend said.
 
 \section{Conclusions}
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ??feels like the right thing??
-and that he remained optimistic the race ??is going to tip at some
-point,?? the friend said.
+
+
 \section{A Summary    }
-Although Mr. Gore has expressed concerns to some associates about
-the damage a brokered convention could cause, several associates
-said he was hopeful that one candidate would soon break through,
-sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ??feels like the right thing??
-and that he remained optimistic the race ??is going to tip at some
-point,?? the friend said.
+
+
 %================================模型评估==============================
 \section{Evaluate of the Mode}
 
 %======================================================================
 \section{Strengths and weaknesses}
-Like any model,the one present above has its strengths and
-weaknesses. Some of the major points are presented below.
+Like any model,the one present above has its strengths and weaknesses. Some of the major points are presented below.
 
 %============================模型优缺点====================================
 \subsection{Strengths}
 \begin{itemize}
-\item \textbf{Applies widely}\\
-This  system can be used for many types of airplanes, and it also
-solves the interference during  the procedure of the boarding
-airplane,as described above we can get to the  optimization
-boarding time.We also know that all the service is automate.
-\item \textbf{Improve the quality of the airport service}\\
-Balancing the cost of the cost and the benefit, it will bring in
-more convenient  for airport and passengers.It also saves many
-human resources for the airline. \item \textbf{}
+\item \textbf{Applied widely}\\
+The model is based on data that is accessible for most of sports, which serves as the foundation of its generality. Furthermore, the model is loosely connected to the rules of the sport under consideration. The model is built on relative performance of a team, avoiding entanglements with intricate technique details. The use of analytic hierarchy process makes possible the control of emphasis on different aspects in the evaluation. As far as sports in NCAA is concerned, the model works well. In fact, besides college sports, the model can be applied to professional conferences and tournaments with little change and the model works for both male and female sports.
+\item \textbf{Dynamic}\\
+The model is dynamic in the sense that data is not used individually. Not only is the overall statistics considered, but the relationship between teams and trend of a team over years contribute to the final result. This model, different from a static model where a game is evaluated individually, is more suitable for evaluating over a period of time. A dynamic model also suggests a more comprehensive use of data, which is a valuable feature with respect to the limit of data due to a time interval.
+\item \textbf{Systematic}\\
+The model is systematic in that it is composed of several well designed layers, each is tightly connected with an hierarchy in the evaluation. This well designed framework brings the model extendibility. When an extra element is needed to be included in the model, it will be easily embedded in because what matters is only the layer corresponding to the element. Besides, this framework make possible free control of the evaluation process. With parameters properly adjusted, the model can be transformed into another evaluation system focusing on some other aspects.
+\item \textbf{Comprehensive}\\
+Different from traditional evaluation system in which only team performance is considered, the model makes a comprehensive comparison, taking into consideration the difference among conferences and changes over time. Besides, these variables are properly quantized to be comparable among each other, which makes the model more reliable. 
+\item \textbf{Stable}\\
+Aware of the fact that coincidence plays an important role in the field of sports, we take advantage of several methods to guarantee the model is stable, minimizing the effect of coincidence. We focus on overall performance or performance over an interval of time, which will eliminate those influence remarkably. Besides, the introduction of variance will explicitly evaluate the influence of coincidence, leading to a more stable model.
 \end{itemize}
 
+\subsection{Weaknesses}
+\begin{itemize}
+\item \textbf{Empirical}\\
+Some of parameters in the model is empirical. Some factors, such as the importance of a game, are hard to be quantized, so the model takes some empirical values. Further professional studies may be needed to support our choices or optimize them. Another way might be determining these parameters by learning. With limited time and efforts, however, we cannot give further explanations for these parameters and set them empirically.
+\item \textbf{Communication skills is not considered explicitly}\\
+Communication with teams can be an important responsibility for coaches. This, however, may require information got directly from teammates, which is impossible for us. Similarly, we believe various of aspects are included in a coach's responsibility besides directing the team to get good grades. The model does not consider these aspects explicitly. Further studies in this field can help with the robustness of our model greatly.
+\end{itemize}
 
 
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{section}{References}
 \bibitem[D. E. KNUTH]{1} D. E. KNUTH   The \TeX{}book  the American
-Mathematical Society and Addison?CWesley
+Mathematical Society and AddisonCWesley
 Publishing Company , 1984-1986.
 \bibitem{2}Lamport, Leslie,  \LaTeX{}: `` A Document Preparation System '',
 Addison-Wesley Publishing Company, 1986.
 \end{thebibliography}
 
-%====================???????????????==========================================
+%====================Appendices==========================================
     \begin{appendices}
     %\renewcommand{\thesection}{\Alph{chapter}.}
 
