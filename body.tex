@@ -1,13 +1,13 @@
 
-%======================ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½====================================
+%======================Ä£ÐÍ½éÉÜ====================================
 \section{Introduction}
 A lot of numbers are usually used to describe the career of a coach in different sports: total years, matches, victories, winning percentage, champoinships, and so on. There also exist other factors that cannot be directedly obtained by these simple data, or even cannot be reflected by \textbf{any} data. These facts make it almost impossible to propose a perfect assessment method for college coaches.
 
 
 
-Our goal is to build a mathematical model to find the best all time college coach or coaches in the previous century in certain sports. Here we mainly focus on NCAA Men's basketball, football, 
+Our goal is to build a mathematical model to find the best all time college coach or coaches in the previous century in certain sports. Here we mainly focus on NCAA Men's basketball, football,
 
-In our metrics for assessment, we use 4 parameters 
+In our metrics for assessment, we use 4 parameters
 
 We develop 2 parameters that can reveal the ability of a coach. Promotion   Stability      Our metric attaches high importance to these aspects.   based on the performance of the team he is managing
 
@@ -19,12 +19,12 @@ We develop 2 parameters that can reveal the ability of a coach. Promotion   Stab
 We, on the other hand, develop a model trying to combine these two aspects together by taking both these two elements, performance of the team and promotion brought by the coach, into consideration. Furthermore, we develop a method to evaluating the performance of a team with limited information, which makes the evaluation for coaches of the whole past century possible since data in those early years may not be as comprehensive as it is now.
 
 
-%Although a hitter might expect a model of the batï¿½Cbaseball collision to
+%Although a hitter might expect a model of the bat?Cbaseball collision to
 %yield insight into how the bat breaks, how the bat imparts spin on the ball,
 %how best to swing the bat, and so on, we model only the sweet spot.
 
 
-%=============================ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½==========================================
+%=============================ÕûÌåÄ£ÐÍ==========================================
 \section{Framework of the Model}
 Basically, our model assesses a coach based on the performance of teams.
 
@@ -98,7 +98,7 @@ Note that it is similar to the definition of WLP, so this parameter has similar 
 \item The expectation for Conference Strength is the same for all conferences, which is 0.5. So this is a fair index when comparing performances across conferences, avoiding prejudices brought by the model.
 \end{itemize}
 
-%==================================Ä£ï¿½Í½ï¿½ï¿½==============================================
+%==================================¾ßÌåÒòËØ==============================================
 
 \subsection{Measurement for Performance}
 In this part, we will explain the method to measure a team's performance. This number will serve as a basic part for evaluating promotion and stability. For the team, we're interested in its WLP of all conference games in the regular season.
@@ -209,7 +209,7 @@ So what we got from this method only relies on N and $x_i$, instead of $x_1, x_2
 Also, our measurement takes into account the overall performance of the conference while SRS does not. So SRS cannot be applied to compare teams from different conferences.
 
 \subsection{$PRM(c)$}
-The calculations of $PRM(c)$ and $STB(c)$ are based the above definition of performance of a team in a specific season. To make it clear, we denote it by $PERF(t, s)$, where $t$ is the team, and $s$ is the season. 
+The calculations of $PRM(c)$ and $STB(c)$ are based the above definition of performance of a team in a specific season. To make it clear, we denote it by $PERF(t, s)$, where $t$ is the team, and $s$ is the season.
 
 %The promotion is determined by two parts of data. One is the team's \emph{historical performance}, which means how this team works before the coach came to the team and another is the team's \emph{temporary performance}, which shows how the team works during the period directed by the coach. The model makes a prediction based on the historical performance and compares the prediction with its real performance. The result of the comparison will be used as promotion.
 For a coach $c$, we first choose a team $t$ that he has coached. If he has only coached one team in his career, then $t$ is this team. If he has coached more than one team, we choose the one that he has coached for the longest time.
@@ -236,52 +236,90 @@ Let $STB(C)$ be the standard deviation of $PERF(t, s_1), PERF(t, s_1+1), \cdots,
 \end{definition}
 
 This is also easy to understand. We use the standard deviation of the team's performances to estimate $STB(c)$.
-%===============================Ä£ï¿½Í½ï¿½ï¿½ï¿½============================================
+%===============================×ÛºÏ·½·¨============================================
+\section{Synthesized Evaluation Based on Four Aspects}
+In this section, we will give an overall credit for a coach based on his performance in four aspects discussed in previous section. For a coach c, $PRM(c)$, $STB(c)$, $ACH(c)$ and $WLP(c)$ will be summed up with weights decided by analytic hierarchy approach.
 
+The hierarchy for this problem is shown in \textbf{Figure 2}
+\begin{figure}[!hf]
+\centering
+\includegraphics[width = 150mm]{Hierarchy.png}
+\caption{Hierarchy}
+\end{figure}
 
-%========================Ä£ï¿½Íµï¿½ÊµÐ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½=============================
+Based on this hierarchy, we have the following comparison matrix
+$$
+\left(
+  \begin{array}{cccc}
+    1 & \frac{1}{3} & \frac{1}{7} & \frac{1}{5} \\
+    3 & 1           & \frac{1}{3} & \frac{1}{3} \\
+    7 & 3           & 1           & 3           \\
+    5 & 3           & \frac{1}{3} & 1           \\
+  \end{array}
+\right)
+$$
 
-\section{Validating the Model}%È·ï¿½ï¿½Ä£ï¿½Í£ï¿½Ê¹Ö®ï¿½ï¿½ï¿½ï¿½
+Now we verify the matrix
+\begin{align}
+CI &= \frac{\lambda_{MAX}(A) - 4}{3}\nonumber\\
+\lambda_{MAX} &= 4.13973 \nonumber\\
+RI &= 0.90\nonumber
+\end{align}
+
+So $CR = \frac{CI}{RI}=0.052 < 0.1$, the matrix can be used as comparison matrix.
+
+Then we have its eigenvectors is $(0.056, 0.139, 0.525, 0.280)^T$.
+
+Now we have the synthesized credit defined as following
+
+\begin{definition}
+For a coach $c$, the synthesized credit is
+$$EVA(c) = 0.056PRO(c) + 0.139STA(c) + 0.525ACH(c) + 0.280WLP(c)$$ 
+\end{definition}
+
+%========================Ä£ÐÍ½á¹û============================
+
+\section{Validating the Model}
 Although Mr. Gore has expressed concerns to some associates about
 the damage a brokered convention could cause, several associates
 said he was hopeful that one candidate would soon break through,
 sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ï¿½ï¿½feels like the right thingï¿½ï¿½
-and that he remained optimistic the race ï¿½ï¿½is going to tip at some
-point,ï¿½ï¿½ the friend said. Although Mr. Gore has expressed concerns
+that his decision not to endorse ??feels like the right thing??
+and that he remained optimistic the race ??is going to tip at some
+point,?? the friend said. Although Mr. Gore has expressed concerns
 to some associates about the damage a brokered convention could
 cause, several associates said he was hopeful that one candidate
 would soon break through, sparing the party such an outcome. He
 told a close friend recently that his decision not to endorse
-ï¿½ï¿½feels like the right thingï¿½ï¿½ and that he remained optimistic the
-race ï¿½ï¿½is going to tip at some point,ï¿½ï¿½ the friend said.
+??feels like the right thing?? and that he remained optimistic the
+race ??is going to tip at some point,?? the friend said.
 
 
 Although Mr. Gore has expressed concerns to some associates about
 the damage a brokered convention could cause, several associates
 said he was hopeful that one candidate would soon break through,
 sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ï¿½ï¿½feels like the right thingï¿½ï¿½
-and that he remained optimistic the race ï¿½ï¿½is going to tip at some
-point,ï¿½ï¿½ the friend said.
+that his decision not to endorse ??feels like the right thing??
+and that he remained optimistic the race ??is going to tip at some
+point,?? the friend said.
 
 \section{Conclusions}
 Although Mr. Gore has expressed concerns to some associates about
 the damage a brokered convention could cause, several associates
 said he was hopeful that one candidate would soon break through,
 sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ï¿½ï¿½feels like the right thingï¿½ï¿½
-and that he remained optimistic the race ï¿½ï¿½is going to tip at some
-point,ï¿½ï¿½ the friend said.
+that his decision not to endorse ??feels like the right thing??
+and that he remained optimistic the race ??is going to tip at some
+point,?? the friend said.
 \section{A Summary    }
 Although Mr. Gore has expressed concerns to some associates about
 the damage a brokered convention could cause, several associates
 said he was hopeful that one candidate would soon break through,
 sparing the party such an outcome. He told a close friend recently
-that his decision not to endorse ï¿½ï¿½feels like the right thingï¿½ï¿½
-and that he remained optimistic the race ï¿½ï¿½is going to tip at some
-point,ï¿½ï¿½ the friend said.
-%================================ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½==============================
+that his decision not to endorse ??feels like the right thing??
+and that he remained optimistic the race ??is going to tip at some
+point,?? the friend said.
+%================================Ä£ÐÍÆÀ¹À==============================
 \section{Evaluate of the Mode}
 
 %======================================================================
@@ -289,7 +327,7 @@ point,ï¿½ï¿½ the friend said.
 Like any model,the one present above has its strengths and
 weaknesses. Some of the major points are presented below.
 
-%============================Ä£ï¿½ï¿½=ï¿½Åµï¿½====================================
+%============================Ä£ÐÍÓÅÈ±µã====================================
 \subsection{Strengths}
 \begin{itemize}
 \item \textbf{Applies widely}\\
@@ -309,13 +347,13 @@ human resources for the airline. \item \textbf{}
 \begin{thebibliography}{99}
 \addcontentsline{toc}{section}{References}
 \bibitem[D. E. KNUTH]{1} D. E. KNUTH   The \TeX{}book  the American
-Mathematical Society and Addisonï¿½CWesley
+Mathematical Society and Addison?CWesley
 Publishing Company , 1984-1986.
 \bibitem{2}Lamport, Leslie,  \LaTeX{}: `` A Document Preparation System '',
 Addison-Wesley Publishing Company, 1986.
 \end{thebibliography}
 
-%====================ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½==========================================
+%====================???????????????==========================================
     \begin{appendices}
     %\renewcommand{\thesection}{\Alph{chapter}.}
 
