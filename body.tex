@@ -269,6 +269,10 @@ For a coach $c$, the synthesized credit is
 $$EVA(c) = 0.056PRO(c) + 0.139STA(c) + 0.525ACH(c) + 0.280WLP(c)$$ 
 \end{definition}
 
+Actually, there are many choices for comparison matrix here and thus the definition of $EVA$ is not unique. The definition of $EVA$ varies as the whole evaluation system focusing on different aspects of a coach. Here we pays more attention to achievement and overall win-loss percentage. One may get a different result if he focus more on the former two aspects.
+
+Analytic hierarchy process here offers a systematic way to decided the weight based on the focus of the evaluation system. Compared with setting these weights empirically, this method provides a guideline and thus providing a more reliable model.
+
 %========================模型结果============================
 
 \section{Validating the Model}
@@ -277,11 +281,60 @@ $$EVA(c) = 0.056PRO(c) + 0.139STA(c) + 0.525ACH(c) + 0.280WLP(c)$$
 \section{Conclusions}
 
 
-\section{A Summary    }
+\section{A Summary}
 
 
 %================================模型评估==============================
-\section{Evaluate of the Mode}
+\section{Evaluation of the Model}
+In this part, we will show the model's effectiveness by showing our measurement does reflect the intrinsic ability of a coach.
+
+First we will show the effectiveness of our measurement for a team's performance. We take Kansas for example.
+
+SRS, as discussed in previous section, is considered to be a metrics for performance of a team and is recorded in NCAA teams. Now we compare our performance calculated for Kansas and SRS for both Kansas and its conference, the Big 12. The result is shown in \textbf{Figure 3}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width = 150mm]{Comparison.png}
+\caption{Comparison between Performance and SRS}
+\end{figure}
+
+From the figure, our measurement generally follows the same tendency as SRS for the team. However, from season 1999-2000 to 2000-2001, there is a inconsistent between the two figures. Meanwhile, SRS for the conference is also inconsistent with SRS for the team. This suggests that compared with SRS, our measurement for the performance of a team takes the overall performance of the conference into consideration, and thus this measurement can be used in comparison between teams from different conferences.
+
+There are also several other inconsistencies in the figure. These inconsistencies are due to the variance of teams in the conference, which is introduced in our model explicitly, leading to a more convincible result.
+
+\begin{comment}
+We take Princeton for example to show the effectiveness of our team performance measurement. The performance figure of Princeton is shown in \textbf{Figure 3}.
+\begin{figure}[!hf]
+\centering
+\includegraphics[width = 150mm]{Princeton.png}
+\caption{Perforce of Princeton}
+\end{figure}
+
+In the figure, there is a sharp drop down at around 1945. Further investigation explains that Princeton performs badly during this period until they have a new coach in season 1946-1947.So our measurement for team performance can reflect some intrinsic factors of a team.
+\end{comment}
+
+Next, we will take two coaches, Mike Krzyzewski and Bob Knight, for example to show how the model evaluate a coach based on their coach experience. In our model, Mike Krzyzewski gets a credit of 1.38 and Bob Knight gets a credit of 1.08. Their basic information is listed below
+
+\begin{tabular}{c|c|c|c}
+  Name            & Overall WLP & Conference Champion & NCAA Champion \\\hline
+  Mike Krzyzewski & 0.764       & 12 times            & 4 times       \\
+  Bob Knight      & 0.706       & 11 times            & 3 times  
+\end{tabular}
+
+In this table, we see the two coaches have got almost the same championships during their coach life. Mike Krzyzewski gets a better overall win-loss percentage than Bob Knight, which is consistent with the fact that the former owns slightly more champions than the latter.
+
+Furthermore, the performance of their team is shown in these two figures
+
+\begin{centering}
+\includegraphics[width = 60mm]{Duke.png}
+\includegraphics[width = 60mm]{Texas_Tech.png}
+\end{centering} 
+
+The left figure is performance figure for Duke where Mike Krzyzewski directed from 1976 till now. The right figure is performance figure for Texas Tech where Bob Knight directed during 1966-2008.
+
+From the figure we can see that their teams performance does not have much difference. As for tendency, however, Duke had a significant promotion the time Mike Krzyzewski took the team while Texas Tech continued to become worse when Bob Knight joined. This comparison suggests Mike Krzyzewski has a better ability to promote the team than Bob Knight, and thus Mike Krzyzewski scores higher than Bob Knight.
+
+With analysis provided above, we are pretty sure about Mike Krzyzewki does do better than Bob knight, which is consistent with the result of our model.
 
 %======================================================================
 \section{Strengths and weaknesses}
@@ -321,6 +374,7 @@ Publishing Company , 1984-1986.
 Addison-Wesley Publishing Company, 1986.
 \end{thebibliography}
 
+\begin{comment}
 %====================Appendices==========================================
     \begin{appendices}
     %\renewcommand{\thesection}{\Alph{chapter}.}
@@ -343,3 +397,4 @@ Here are simulation programmes we used in our model as follow.\\
 \lstinputlisting[language=C++]{./code/sudoku.cpp}
 
     \end{appendices}
+\end{comment}
